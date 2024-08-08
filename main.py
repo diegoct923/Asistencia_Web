@@ -25,15 +25,26 @@ def registrar_asistencia():
     personas = list(personas_collection.find())
     return render_template('registrar_asistencia.html', personas=personas)
 
+from flask import Flask, render_template, request, jsonify
+
 @app.route('/agregar_persona', methods=['GET', 'POST'])
 def agregar_persona():
     if request.method == 'POST':
         nombre = request.form['nombre']
         apellido = request.form['apellido']
+        
+        # Crear el documento de la persona
         persona = {"nombre": nombre, "apellido": apellido}
+        
+        # Insertar la persona en la colección de MongoDB
         personas_collection.insert_one(persona)
-        return redirect(url_for('agregar_persona'))
+        
+        # Devolver una respuesta JSON para el manejo de SweetAlert2
+        return jsonify(success=True)
+    
+    # Renderizar el formulario si el método es GET
     return render_template('agregar_persona.html')
+
 
 @app.route('/eliminar_persona', methods=['GET', 'POST'])
 def eliminar_persona():

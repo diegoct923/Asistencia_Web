@@ -2,17 +2,41 @@
 
 {% block content %}
     <h2>Eliminar Persona</h2>
+
+    <!-- Campo de búsqueda -->
+    <input type="text" id="buscador" placeholder="Buscar persona..." onkeyup="buscarPersona()">
+
     {% if personas %}
-        {% for persona in personas %}
-        <form method="post" action="{{ url_for('eliminar_persona') }}">
-            <div class="eliminar_per">
-                <label>{{ persona.nombre }} {{ persona.apellido }}</label>
-                <input type="hidden" name="persona_id" value="{{ persona._id }}">
-                <input type="submit" value="Eliminar">
-            </div>
-        </form>
-        {% endfor %}
+        <div id="lista-personas">
+            {% for persona in personas %}
+            <form method="post" action="{{ url_for('eliminar_persona') }}">
+                <div class="eliminar_per">
+                    <label class="per_nom_del">{{ persona.nombre }} {{ persona.apellido }}</label>
+                    <input type="hidden" name="persona_id" value="{{ persona._id }}">
+                    <input type="submit" value="Eliminar">
+                </div>
+            </form>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>No hay personas disponibles.</p>
+        <p class="per_no_dispo">No hay personas disponibles.</p>
     {% endif %}
+
+    <script>
+        function buscarPersona() {
+            // Obtener el valor del campo de búsqueda
+            let input = document.getElementById('buscador').value.toLowerCase();
+            let personas = document.getElementById('lista-personas').getElementsByTagName('form');
+
+            // Iterar sobre todas las personas y ocultar las que no coincidan con la búsqueda
+            for (let i = 0; i < personas.length; i++) {
+                let nombre = personas[i].getElementsByTagName('label')[0].innerText.toLowerCase();
+                if (nombre.includes(input)) {
+                    personas[i].style.display = '';
+                } else {
+                    personas[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
 {% endblock %}

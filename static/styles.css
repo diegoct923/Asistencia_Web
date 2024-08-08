@@ -131,6 +131,10 @@ button:hover {
 
 }
 
+.per_nom_del {
+    width: 50%;
+}
+
 .eliminar_per {
     width: 90%;
     display: flex;
@@ -188,6 +192,23 @@ th {
     background-color: #f9f9f9;
     text-align: center;
     border: 1px solid #ddd;
+}
+
+.per_no_dispo {
+    text-align: center;
+}
+
+#buscador {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: left;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

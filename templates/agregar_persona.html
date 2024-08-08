@@ -2,9 +2,53 @@
 
 {% block content %}
     <h2>Agregar Persona</h2>
-    <form method="post" action="{{ url_for('agregar_persona') }}">
+    <form id="agregarPersonaForm" method="post">
         <input type="text" placeholder="Nombre" id="nombre" name="nombre" required><br>
         <input type="text" id="apellido" placeholder="Apellido" name="apellido" required><br>
         <input type="submit" value="Agregar">
     </form>
+
+    <!-- Incluir SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById('agregarPersonaForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('{{ url_for("agregar_persona") }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Persona agregada exitosamente",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    form.reset(); // Reinicia el formulario
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Hubo un problema al agregar la persona. Inténtalo nuevamente.",
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Hubo un problema con la solicitud. Inténtalo nuevamente.",
+                });
+            });
+        });
+    </script>
 {% endblock %}
