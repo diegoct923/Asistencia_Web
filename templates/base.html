@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Registro de Asistencias de CEYFA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Sistema de Registro de Asistencias</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('agregar_persona') }}">Agregar Persona</a></li>
+            <li><a href="{{ url_for('eliminar_persona') }}">Eliminar Persona</a></li>
+            <li><a href="{{ url_for('registrar_asistencia') }}">Registrar Asistencia</a></li>
+            <li><a href="{{ url_for('listar_asistencias') }}">Lista Asistencias</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

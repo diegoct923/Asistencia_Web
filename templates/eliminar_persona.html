@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Eliminar Persona</h2>
+    {% if personas %}
+        {% for persona in personas %}
+        <form method="post" action="{{ url_for('eliminar_persona') }}">
+            <div class="eliminar_per">
+                <label>{{ persona.nombre }} {{ persona.apellido }}</label>
+                <input type="hidden" name="persona_id" value="{{ persona._id }}">
+                <input type="submit" value="Eliminar">
+            </div>
+        </form>
+        {% endfor %}
+    {% else %}
+        <p>No hay personas disponibles.</p>
+    {% endif %}
+{% endblock %}

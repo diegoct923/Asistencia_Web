@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Agregar Persona</h2>
+    <form method="post" action="{{ url_for('agregar_persona') }}">
+        <input type="text" placeholder="Nombre" id="nombre" name="nombre" required><br>
+        <input type="text" id="apellido" placeholder="Apellido" name="apellido" required><br>
+        <input type="submit" value="Agregar">
+    </form>
+{% endblock %}

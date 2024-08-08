@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Registrar Asistencia</h2>
+    <form method="post" action="{{ url_for('registrar_asistencia') }}">
+        {% if personas %}
+            {% for persona in personas %}
+            <div class="per_asis">
+                <label class="nombre_per">{{ persona.nombre }} {{ persona.apellido }}</label>
+                <div>
+                    <input type="checkbox" id="asistencia_{{ persona._id }}" name="asistencia_{{ persona._id }}" value="S">
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No hay personas disponibles.</p>
+        {% endif %}
+        <input type="submit" value="Registrar Asistencias">
+    </form>
+{% endblock %}

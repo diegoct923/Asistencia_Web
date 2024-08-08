@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Lista Asistencias</h2>
+    <form method="post" action="{{ url_for('listar_asistencias') }}">
+        <label for="fecha">Seleccionar Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        <input type="submit" value="Filtrar">
+    </form>
+    
+    <div class="lista">
+        {% if fecha_seleccionada %}
+        <h3 class="fecha">Fecha: {{ fecha_seleccionada }}</h3>
+    {% endif %}
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Asistencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asistencia in asistencias %}
+            <tr>
+                <td>{{ personas[asistencia.persona_id] }}</td>
+                <td>{{ 'Presente' if asistencia.asistencia else 'Ausente' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}
